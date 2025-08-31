@@ -5,23 +5,37 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Create a fixed dark blue background that works on iOS */
 body {
     color: #e6e6ff;
-    background: #050a1d; /* Fallback solid color */
-    background: linear-gradient(-45deg, #050a1d, #07142e, #0a1c3f, #0d244f);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
     min-height: 100vh;
     padding: 20px;
     overflow-x: hidden;
     position: relative;
 }
 
-/* Fix for Safari gradient rendering */
-@supports (-webkit-touch-callout: none) {
-    body {
-        background-attachment: fixed;
-    }
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #050a1d;
+    z-index: -2;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(-45deg, #050a1d, #07142e, #0a1c3f, #0d244f);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    z-index: -1;
 }
 
 @keyframes gradient {
@@ -37,7 +51,7 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: -1;
+    z-index: 0;
     overflow: hidden;
 }
 
@@ -47,7 +61,6 @@ body {
     opacity: 0;
     animation: float 15s linear infinite;
     z-index: 1;
-    will-change: transform, opacity;
 }
 
 .heart {
@@ -56,7 +69,6 @@ body {
     opacity: 0;
     animation: float 12s linear infinite;
     z-index: 1;
-    will-change: transform, opacity;
 }
 
 @keyframes float {
@@ -74,21 +86,12 @@ body {
     max-width: 100%;
     margin: 0 auto;
     padding: 20px;
-    background-color: rgba(5, 15, 35, 0.85); /* More opaque for Safari */
+    background-color: rgba(5, 15, 35, 0.9);
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(70, 130, 180, 0.3);
     position: relative;
     z-index: 1;
-}
-
-/* Fallback for browsers that don't support backdrop-filter */
-@supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
-    .container {
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        background-color: rgba(5, 15, 35, 0.7);
-    }
 }
 
 header {
@@ -122,7 +125,7 @@ h1 {
 }
 
 .music-player {
-    background: rgba(10, 25, 60, 0.85); /* More opaque for Safari */
+    background: rgba(10, 25, 60, 0.9);
     border-radius: 20px;
     padding: 25px;
     margin-bottom: 35px;
@@ -132,7 +135,7 @@ h1 {
 }
 
 .music-player:hover {
-    background: rgba(15, 35, 75, 0.9);
+    background: rgba(15, 35, 75, 0.95);
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
@@ -225,7 +228,7 @@ h1 {
 }
 
 .letter {
-    background: rgba(10, 25, 60, 0.85); /* More opaque for Safari */
+    background: rgba(10, 25, 60, 0.9);
     border-radius: 20px;
     padding: 35px;
     margin-bottom: 35px;
@@ -239,7 +242,7 @@ h1 {
 }
 
 .letter:hover {
-    background: rgba(15, 35, 75, 0.9);
+    background: rgba(15, 35, 75, 0.95);
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
@@ -252,7 +255,7 @@ h1 {
 .special-message {
     margin: 35px 0;
     padding: 25px;
-    background: rgba(15, 35, 75, 0.7);
+    background: rgba(15, 35, 75, 0.8);
     border-radius: 18px;
     border: 1px solid rgba(70, 130, 180, 0.3);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -275,7 +278,7 @@ h1 {
 }
 
 .gallery {
-    background: rgba(10, 25, 60, 0.85); /* More opaque for Safari */
+    background: rgba(10, 25, 60, 0.9);
     border-radius: 20px;
     padding: 25px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
@@ -284,7 +287,7 @@ h1 {
 }
 
 .gallery:hover {
-    background: rgba(15, 35, 75, 0.9);
+    background: rgba(15, 35, 75, 0.95);
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
@@ -378,12 +381,11 @@ footer {
 @media (max-width: 768px) {
     body {
         padding: 15px;
-        background-attachment: fixed; /* Important for mobile gradient */
     }
     
     .container {
         padding: 15px;
-        background-color: rgba(5, 15, 35, 0.9); /* Even more opaque on mobile */
+        background-color: rgba(5, 15, 35, 0.95);
     }
     
     h1 {
@@ -397,7 +399,6 @@ footer {
     .album-image {
         width: 90px;
         height: 90px;
-        font-size: 35px;
     }
     
     .song-title {
@@ -408,7 +409,7 @@ footer {
         font-size: 1.05rem;
         padding: 20px;
         line-height: 1.8;
-        background-color: rgba(10, 25, 60, 0.9);
+        background-color: rgba(10, 25, 60, 0.95);
     }
     
     .special-message p {
@@ -445,24 +446,23 @@ footer {
         padding: 12px 28px;
         font-size: 1.1rem;
     }
-    
-    /* Disable backdrop-filter on older iOS devices */
-    @supports not (backdrop-filter: blur(12px)) {
-        .container, .music-player, .letter, .gallery {
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-        }
-    }
 }
 
-/* Additional fix for iOS Safari */
+/* iOS-specific fixes */
 @supports (-webkit-touch-callout: none) {
-    body {
-        min-height: -webkit-fill-available;
+    body::after {
+        background-attachment: scroll;
     }
     
-    /* Fix for gradient rendering on iOS */
-    html {
-        height: -webkit-fill-available;
+    html, body {
+        height: 100%;
+        position: fixed;
+        overflow: hidden;
+    }
+    
+    .container {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: 100vh;
     }
 }
